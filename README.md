@@ -79,3 +79,43 @@ Please exercise caution and ensure you have proper authorization when connecting
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 AFTER CONNECTING:
 Create a dir in ubuntu and give following command as done un screenshot.....for transfering files rsync -rcavL <sorucefile> <username>@<IP>~/ pathtosavethefile
+Another way to transfer files between your Ubuntu and Kali Linux systems after establishing an SSH connection is by using the `rsync` command. `rsync` is a powerful and versatile file synchronization and transfer tool that works well over SSH. Here's how you can use it:
+
+**On Ubuntu (source system):**
+
+1. Open a terminal on your Ubuntu system.
+
+2. Use the `rsync` command to transfer files from your local system to the Kali Linux system. Replace `local_file` with the path to the file you want to transfer, `username` with your Kali Linux username, and `kali_ip_address` with the IP address of your Kali Linux system. Also, specify the destination directory on the Kali Linux system:
+
+   ```bash
+   rsync -avz -e ssh local_file username@kali_ip_address:/path/to/destination/directory/
+   ```
+
+   For example:
+
+   ```bash
+   rsync -avz -e ssh file.txt Username@IP:/home/FolderName/
+   ```
+
+   - `-avz` stands for:
+     - `a`: Archive mode (preserves file permissions, ownership, and timestamps).
+     - `v`: Verbose mode (shows detailed progress).
+     - `z`: Compresses data during transfer, which can be beneficial for large files.
+
+3. You will be prompted to enter the password for your Kali Linux user account. After providing the correct password, `rsync` will transfer the file to the specified directory on the Kali Linux system.
+
+**On Kali Linux (destination system):**
+
+To transfer files from the Kali Linux system to your Ubuntu system using `rsync`, reverse the source and destination in the `rsync` command:
+
+```bash
+rsync -avz -e ssh username@kali_ip_address:/path/to/remote/file.txt /path/to/local/destination/
+```
+
+For example:
+
+```bash
+rsync -avz -e ssh username@IP:/home/FolderName/file.txt /path/to/local/destination/
+```
+
+`rsync` is a versatile tool and provides various options for transferring files efficiently and securely. It's particularly useful when you need to synchronize directories or transfer multiple files.
